@@ -43,16 +43,16 @@
     console.log(timeSeries)
     function plot_contour(fileName,value1,value2)
     {
-        // Step 1 read csv file
+        // CSV file
         d3.csv(fileName).then(function (data)
         {
-            // data dimensions
-            let m= 512, n= 512;   
+            // Data Dimension
+            let a= 512, b= 512;   
 
             let min_Value=value1
             let max_Value=value2
 
-            // Step 2 convert data into 1D list
+            // 1D list
             let values_T= [];
             data.forEach(function (d) {
                 values_T.push(+d[0])
@@ -68,13 +68,13 @@
                 "#ffffff","#ffffff","#2d3f8c", "#3e5eba", "#2b83ba",])
                 .interpolate(d3.interpolateHcl);
 
-            // Step 3 contour generator
+            //Generating Contour
             let contours = d3.contours()
-            .size([m, n])
-                .thresholds(d3.range(min_Value,max_Value,190)) // threshold is 6 degrees
+            .size([a, b])
+                .thresholds(d3.range(min_Value,max_Value,190)) 
                 (values_T);
 
-            // Step 3 append contour to path (d)
+            
             svg.append("g").attr("class","contours")
                 .selectAll("path")
                 .data(contours)
